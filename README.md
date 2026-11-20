@@ -4,6 +4,9 @@
 
 Crowd Check runs your design or live page past a panel of 200 simulated users with very different levels of tech skill. It tells you who reached your main goal, where the others got stuck, and what you could change. Every run produces heatmaps and a full report.
 
+<img width="1280" height="728" alt="telegram-cloud-photo-size-5-6052956565297371789-y" src="https://github.com/user-attachments/assets/c737fa5e-439b-45be-ab7e-2e70178b979e" />
+
+
 > [!IMPORTANT]
 > Crowd Check simulates users. Its results are predictions, not measured behaviour. Use it to find likely problems early and cheaply, then confirm the important findings with real people before making big decisions.
 
