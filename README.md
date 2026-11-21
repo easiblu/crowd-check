@@ -12,6 +12,37 @@ Crowd Check runs your design or live page past a panel of 200 simulated users wi
 
 ---
 
+<p align="center">
+  Free animated React components for Tailwind CSS. 100 hand-tuned micro-interactions, each one file.
+</p>
+
+<p align="center">
+  <a href="https://motion-brew.com"><b>motion-brew.com</b></a>
+  &nbsp;·&nbsp;
+  <a href="https://www.npmjs.com/package/motion-brew">npm</a>
+  &nbsp;·&nbsp;
+  <a href="https://motion-brew.com/mcp">MCP for AI agents</a>
+</p>
+
+<p align="center">
+  Made by <b>Md Eftakher</b>
+  &nbsp;·&nbsp;
+  <a href="https://eftakher.me">eftakher.me</a>
+  &nbsp;·&nbsp;
+  <a href="https://linkedin.com/in/easiblu">LinkedIn</a>
+  &nbsp;·&nbsp;
+  <a href="https://x.com/easiblu">X @easiblu</a>
+</p>
+
+<p align="center">
+  <a href="https://www.npmjs.com/package/motion-brew"><img src="https://img.shields.io/npm/v/motion-brew?color=242423&label=npm" alt="npm version" /></a>
+  <a href="#license"><img src="https://img.shields.io/badge/license-MIT-242423" alt="MIT licence" /></a>
+  <img src="https://img.shields.io/badge/components-100-242423" alt="100 components" />
+</p>
+
+---
+
+
 ## Contents
 
 - [What you get](#what-you-get)
