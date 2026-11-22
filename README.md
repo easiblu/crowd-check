@@ -2,27 +2,17 @@
 
 **Simulated usability testing for mobile and desktop designs, as a Claude skill.**
 
-Crowd Check runs your design or live page past a panel of 200 simulated users with very different levels of tech skill. It tells you who reached your main goal, where the others got stuck, and what you could change. Every run produces heatmaps and a full report.
+Crowd Check runs your design or live page past a panel of 200 simulated users with very different levels of tech skill. It tells you who reached your main goal, where the others got stuck, and what you could change. Every run produces heatmaps, a full report and a fix task with a ready-to-use prompt for every problem it finds.
 
-<img width="1280" height="728" alt="telegram-cloud-photo-size-5-6052956565297371789-y" src="https://github.com/user-attachments/assets/c737fa5e-439b-45be-ab7e-2e70178b979e" />
+![Crowd Check: test your design with 200 simulated users](assets/hero.png)
+
+<sub>All graphics come from a sample 50-persona run on the Microsoft Clarity dashboard. The numbers are simulated, not tracked.</sub>
 
 
 > [!IMPORTANT]
 > Crowd Check simulates users. Its results are predictions, not measured behaviour. Use it to find likely problems early and cheaply, then confirm the important findings with real people before making big decisions.
 
 ---
-
-<p align="center">
-  Free animated React components for Tailwind CSS. 100 hand-tuned micro-interactions, each one file.
-</p>
-
-<p align="center">
-  <a href="https://motion-brew.com"><b>motion-brew.com</b></a>
-  &nbsp;·&nbsp;
-  <a href="https://www.npmjs.com/package/motion-brew">npm</a>
-  &nbsp;·&nbsp;
-  <a href="https://motion-brew.com/mcp">MCP for AI agents</a>
-</p>
 
 <p align="center">
   Made by <b>Md Eftakher</b>
@@ -35,9 +25,10 @@ Crowd Check runs your design or live page past a panel of 200 simulated users wi
 </p>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/motion-brew"><img src="https://img.shields.io/npm/v/motion-brew?color=242423&label=npm" alt="npm version" /></a>
   <a href="#license"><img src="https://img.shields.io/badge/license-MIT-242423" alt="MIT licence" /></a>
-  <img src="https://img.shields.io/badge/components-100-242423" alt="100 components" />
+  <img src="https://img.shields.io/badge/personas-200-242423" alt="200 personas" />
+  <img src="https://img.shields.io/badge/testing%20methods-14-242423" alt="14 testing methods" />
+  <img src="https://img.shields.io/badge/Claude-skill-242423" alt="Claude skill" />
 </p>
 
 ---
@@ -54,12 +45,14 @@ Crowd Check runs your design or live page past a panel of 200 simulated users wi
 - [Choosing a panel size](#choosing-a-panel-size)
 - [The persona panel](#the-persona-panel)
 - [Reading the report](#reading-the-report)
+- [Fix tasks](#fix-tasks)
 - [Example prompts](#example-prompts)
 - [Tips for useful results](#tips-for-useful-results)
 - [Limitations](#limitations)
 - [Customising the skill](#customising-the-skill)
 - [FAQ](#faq)
 - [Repository layout](#repository-layout)
+- [License](#license)
 
 ---
 
@@ -71,6 +64,7 @@ Crowd Check runs your design or live page past a panel of 200 simulated users wi
 | **14 testing methods** | Task tests, prototype tests, A/B, preference, competitor, benchmark, card sorting, tree testing, surveys, interviews, focus groups and more |
 | **Heatmaps, every run** | Attention heatmap, tap map and scroll reach for each screen and device |
 | **Report, every run** | Verdict, goal funnel, scores by group, ranked issues, what worked, accessibility flags and suggested improvements |
+| **Fix tasks, every run** | One task per issue with the problem, why it matters, why it failed, how to fix it and a ready-to-copy prompt |
 | **Mobile and desktop** | Mobile at 390 × 844, desktop at 1440 × 900 |
 | **Two kinds of input** | Designs in Claude (artifacts or uploaded screens) or live and staging URLs |
 
@@ -101,7 +95,7 @@ Crowd Check runs your design or live page past a panel of 200 simulated users wi
 Install for your user account:
 
 ```bash
-git clone https://github.com/<your-username>/crowd-check.git
+git clone https://github.com/easiblu/crowd-check.git
 cp -r crowd-check/crowd-check ~/.claude/skills/
 ```
 
@@ -132,8 +126,8 @@ Pull the latest version, then repeat the steps above. In the Claude apps, delete
    Mobile and desktop, quick panel.
    ```
 
-4. Answer any setup questions Claude asks.
-5. Get the verdict in the chat, plus a link to the full report with heatmaps.
+4. Answer the setup questions: first the scenario, then anything else your request didn't cover.
+5. Get the verdict and the list of fix tasks in the chat, plus a link to the full report with heatmaps and prompts.
 
 A Quick run with 8 personas on a short flow usually takes a few minutes.
 
@@ -141,20 +135,25 @@ A Quick run with 8 personas on a short flow usually takes a few minutes.
 
 ## How a run works
 
-```
-Intake  →  Simulation  →  Heatmaps  →  Report
-```
+![How a run works: Scenario, Simulation, Heatmaps, Report, Fix tasks](assets/how-it-works.png)
 
 ### 1. Intake
 
-Claude asks about anything your request doesn't already cover, in one round:
+Claude asks about anything your request doesn't already cover, in two rounds.
+
+**Round 1: the scenario.** Who your users are, where they come from and what they want. Claude looks at the design and suggests two or three likely scenarios, or you write your own. The scenario comes first because it shapes everything Claude suggests next.
+
+| Question | Example answer |
+|---|---|
+| Scenario | "Saw an Instagram ad, wants a card for a friend" |
+
+**Round 2: everything else.** The suggested tasks and goals are based on the scenario you picked.
 
 | Question | Example answer |
 |---|---|
 | What is being tested? | A Claude artifact, uploaded screens, or a URL |
 | The task | "Find a birthday card and get to checkout" |
 | **Primary objective** | "Users press the Create free now button" |
-| Scenario | "Saw an Instagram ad, wants a card for a friend" |
 | Secondary objectives (optional) | "Notices the price", "Opens the menu" |
 | Device | Mobile, desktop or both (default: both) |
 | Method | See [Choosing a testing method](#choosing-a-testing-method) (default: Unmoderated task test) |
@@ -175,6 +174,8 @@ Every persona is tracked through the **goal funnel**: Saw, Understood, Wanted, P
 
 ### 3. Heatmaps (always produced)
 
+![Attention heatmap and tap map from a sample run](assets/heatmaps.png)
+
 For every screen and device:
 
 - **Attention heatmap:** where personas looked, cool to hot.
@@ -187,6 +188,10 @@ Card sorting and tree testing get grid or tree heatmaps instead. Every heatmap i
 ### 4. Report (always produced)
 
 A single report page with the heatmaps embedded, published as a Claude artifact where possible, otherwise as an HTML file. See [Reading the report](#reading-the-report).
+
+### 5. Fix tasks (always produced when issues are found)
+
+Every issue in the report becomes a task card with a ready-to-copy prompt. See [Fix tasks](#fix-tasks).
 
 ---
 
@@ -252,6 +257,8 @@ Methods can be combined: for example, *"Unmoderated task test, then a survey."*
 
 ## The persona panel
 
+![200 personas in four groups](assets/personas.png)
+
 | Group | Who | Age | Tech score (1–10) | Personas |
 |---|---|---|---|---|
 | **A** | Low-tech millennials, mostly phone-only, lost outside a few familiar apps | 30–44 | 2–4 | 50 |
@@ -262,6 +269,8 @@ Methods can be combined: for example, *"Unmoderated task test, then a survey."*
 Personas 1–10 in each group have full profiles with a voice line. Personas 11–50 have compact profiles with the same fields: name, age, job, tech score, device, skills, behaviour and what trips them up.
 
 The panel deliberately includes accessibility needs (colour blindness, low vision, hand tremor, dyslexia, screen reader use) and real-world conditions (one-handed use, glare, slow data, shared devices, English as a second language).
+
+Phone-only personas never run on desktop. Most of Group A is phone-only, so a desktop-only test has only a few Group A personas; Claude says so in the report.
 
 **Example persona:**
 
@@ -274,6 +283,8 @@ The panel deliberately includes accessibility needs (colour blindness, low visio
 
 ## Reading the report
 
+![Goal funnel and results by persona group](assets/goal-funnel.png)
+
 | Section | What it tells you |
 |---|---|
 | **Verdict** | Method, panel size, your goal, how many reached it, and the biggest blocker |
@@ -284,6 +295,7 @@ The panel deliberately includes accessibility needs (colour blindness, low visio
 | **Top issues** | Screen, element, what happened, who was affected, severity (1–4), suggested fix |
 | **What worked** | Patterns to keep |
 | **What could be improved** | Suggested changes with expected impact and effort |
+| **Fix tasks** | A checklist with one task and prompt per issue (see below) |
 | **Persona highlights** | The most revealing sessions, with quotes |
 | **Mobile vs desktop** | Differences between devices |
 | **Accessibility flags** | Contrast, text size, tap targets under 44 px, colour-only signals, missing labels |
@@ -292,7 +304,28 @@ The panel deliberately includes accessibility needs (colour blindness, low visio
 **Severity scale:** 4 Blocker · 3 Major · 2 Minor · 1 Cosmetic. Priority is severity multiplied by the share of personas affected.
 
 > [!NOTE]
-> The **What could be improved** section is AI-generated from simulated users. You are the designer: decide which suggestions matter for your product and users, and which don't.
+> The **What could be improved** and **Fix tasks** sections are AI-generated from simulated users. You are the designer: decide which suggestions matter for your product and users, and which don't.
+
+---
+
+## Fix tasks
+
+Every issue in **Top issues** becomes a task card, in the same priority order, numbered FT-1, FT-2 and so on. Each card has a checkbox so you can tick it off in the report, and these fields:
+
+| Field | What it says |
+|---|---|
+| **Title** | The element and the change, tagged with severity and the groups affected |
+| **Problem** | What happens, where, and how many personas it hit |
+| **Why it matters** | Where people dropped out of the goal funnel, and what they pressed instead |
+| **Why it failed** | The root cause from the sessions, with a persona quote |
+| **How to fix it** | Two to four concrete changes, and what to keep |
+| **Prompt** | A ready-to-copy prompt that fixes this one issue |
+
+Each prompt works on its own in a fresh chat: it describes the screen and element, the problem, the change, the constraints (keep your design system, change nothing else) and how to check it's done. It ends by suggesting a **Re-test** with the personas who struggled.
+
+Prompts fit what you tested. For a design in Claude they're written as edits to the design; for a live URL they're written as code changes, describing elements as they appear on screen.
+
+![A fix task card with its ready-to-copy prompt](assets/fix-tasks.png)
 
 ---
 
@@ -344,10 +377,11 @@ Re-test the personas who failed last time on the updated checkout.
 ## Tips for useful results
 
 - **Give one clear goal.** "Users press Create free now" gives a sharper result than "see if the page works".
-- **Describe a realistic scenario.** Where users come from changes what they look for.
+- **Describe a realistic scenario.** Where users come from changes what they look for, and it's the first thing Claude asks.
 - **Share the whole flow.** With static screens, personas stop where the screens stop.
 - **Use staging for live tests.** Crowd Check never buys, pays or creates accounts, but staging keeps test traffic out of your analytics.
 - **Rotate personas.** Quick and Standard pick different personas each run, so repeated runs widen coverage.
+- **Close the loop.** Use a fix task's prompt, make the change, then Re-test the personas it lists.
 - **Treat numbers as direction.** A 40 % goal rate from 8 simulated personas is a signal, not a statistic.
 
 ---
@@ -357,6 +391,7 @@ Re-test the personas who failed last time on the updated checkout.
 - Personas are simulations based on written profiles. They can't fully reproduce real emotion, context or randomness.
 - Results from static screens depend on Claude's reading of the image; live URLs give more accurate positions.
 - Heatmaps are predicted from simulated attention, not eye tracking or click analytics.
+- Fix task prompts describe what was visible on screen. Claude doesn't see your code or design files, so check each change before you ship it.
 - Large runs (Full, 200 personas) take a long time and use a lot of usage.
 - The panel describes general online shoppers. If your audience is specialised (clinicians, B2B buyers, children's parents only), say so and Claude will suggest additional personas.
 
@@ -368,12 +403,13 @@ Everything lives in [`crowd-check/SKILL.md`](crowd-check/SKILL.md):
 
 | To change... | Edit section |
 |---|---|
-| Intake questions or defaults | 1. Set up the run |
+| Intake questions, their order or defaults | 1. Set up the run |
 | Testing methods | 2. Testing methods |
 | Live URL viewport sizes and safety rules | 3. Get the design in front of you |
 | Simulation rules and scorecard | 4. Simulate each persona |
 | Heatmap style | 5. Heatmaps |
 | Report sections and the AI notice | 6. Report |
+| Fix task fields and prompt rules | 6a. Fix tasks |
 | Personas | 7. The persona panel |
 
 **Adding a persona:** copy the format of an extended persona (for example A11) and keep its age and tech score inside the group's range so the groups stay balanced.
@@ -395,7 +431,10 @@ No. It stops at the payment step and never enters payment details or creates acc
 Quick and Standard rotate which personas take part, and the simulation isn't deterministic. For comparable runs, use Benchmark, which reuses the same personas.
 
 **Can I run it without being asked questions?**
-Yes. Put the task, goal, device, method and panel size in your first message. In unattended or scheduled runs, Claude picks sensible defaults and lists them at the top of the report.
+Yes. Put the scenario, task, goal, device, method and panel size in your first message. In unattended or scheduled runs, Claude picks sensible defaults and lists them at the top of the report.
+
+**Can I use the fix task prompts in Claude Code?**
+Yes. For a live site, paste the prompt into Claude Code in your project's repo. For a design in Claude, paste it into a chat with the design open.
 
 ---
 
@@ -403,7 +442,15 @@ Yes. Put the task, goal, device, method and panel size in your first message. In
 
 ```
 .
+├── LICENSE
 ├── README.md
+├── assets/           # README graphics
 └── crowd-check/
-    └── SKILL.md      # The skill: method, rules and the 200-persona panel
+    └── SKILL.md      # The skill: method, rules, fix tasks and the 200-persona panel
 ```
+
+---
+
+## License
+
+[MIT](LICENSE) © 2026 Md Eftakher Alam
