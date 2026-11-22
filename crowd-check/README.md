@@ -4,7 +4,9 @@
 
 Crowd Check runs your design or live page past a panel of 200 simulated users with very different levels of tech skill. It tells you who reached your main goal, where the others got stuck, and what you could change. Every run produces heatmaps, a full report and a fix task with a ready-to-use prompt for every problem it finds.
 
-<img width="1280" height="728" alt="Crowd Check report with heatmaps" src="https://github.com/user-attachments/assets/c737fa5e-439b-45be-ab7e-2e70178b979e" />
+![Crowd Check: test your design with 200 simulated users](assets/hero.png)
+
+<sub>All graphics come from a sample 50-persona run on the Microsoft Clarity dashboard. The numbers are simulated, not tracked.</sub>
 
 
 > [!IMPORTANT]
@@ -133,9 +135,7 @@ A Quick run with 8 personas on a short flow usually takes a few minutes.
 
 ## How a run works
 
-```
-Intake  →  Simulation  →  Heatmaps  →  Report  →  Fix tasks
-```
+![How a run works: Scenario, Simulation, Heatmaps, Report, Fix tasks](assets/how-it-works.png)
 
 ### 1. Intake
 
@@ -173,6 +173,8 @@ Each persona, in character:
 Every persona is tracked through the **goal funnel**: Saw, Understood, Wanted, Pressed.
 
 ### 3. Heatmaps (always produced)
+
+![Attention heatmap and tap map from a sample run](assets/heatmaps.png)
 
 For every screen and device:
 
@@ -255,6 +257,8 @@ Methods can be combined: for example, *"Unmoderated task test, then a survey."*
 
 ## The persona panel
 
+![200 personas in four groups](assets/personas.png)
+
 | Group | Who | Age | Tech score (1–10) | Personas |
 |---|---|---|---|---|
 | **A** | Low-tech millennials, mostly phone-only, lost outside a few familiar apps | 30–44 | 2–4 | 50 |
@@ -278,6 +282,8 @@ Phone-only personas never run on desktop. Most of Group A is phone-only, so a de
 ---
 
 ## Reading the report
+
+![Goal funnel and results by persona group](assets/goal-funnel.png)
 
 | Section | What it tells you |
 |---|---|
@@ -319,12 +325,7 @@ Each prompt works on its own in a fresh chat: it describes the screen and elemen
 
 Prompts fit what you tested. For a design in Claude they're written as edits to the design; for a live URL they're written as code changes, describing elements as they appear on screen.
 
-**Example (shortened):**
-
-> **FT-1 · Label the bag icon in the header** · Blocker · Groups A, C
-> **Problem.** On the product page (mobile), 5 of 8 personas couldn't find the cart.
-> **Why it failed.** The cart is an unlabeled 20 px light-grey bag icon. C4: *"What is the little bag for?"*
-> **Prompt.** *In the mobile product page header, the cart is an unlabeled 20 px bag icon… Add a visible "Cart" label, make the tap area at least 44 × 44 px… Afterwards, run a Crowd Check Re-test with personas A2, A7, C1, C4 and C9.*
+![A fix task card with its ready-to-copy prompt](assets/fix-tasks.png)
 
 ---
 
@@ -443,6 +444,7 @@ Yes. For a live site, paste the prompt into Claude Code in your project's repo. 
 .
 ├── LICENSE
 ├── README.md
+├── assets/           # README graphics
 └── crowd-check/
     └── SKILL.md      # The skill: method, rules, fix tasks and the 200-persona panel
 ```
