@@ -5,7 +5,7 @@ description: "Crowd Check: simulate user testing of a UX or UI design (mobile or
 
 # Crowd Check
 
-Run a simulated usability test of a design or live page with a fixed panel of 200 personas (four groups of 50), then report what broke, for whom, and what to fix.
+Run a simulated usability test of a design or live page with a fixed panel of 200 personas (four groups of 50), then report what broke, for whom, and what to fix, with a fix task and ready-to-use prompt for every issue.
 
 The value of this skill comes from the personas behaving differently from each other and from the designer. A run where everyone completes the task and says nice things is a failed run. Stay strictly inside each persona's knowledge and habits.
 
@@ -13,16 +13,21 @@ Simulated users are a fast way to find likely problems before real testing. They
 
 ## 1. Set up the run
 
-Every run starts with a short intake. Ask the questions below in one round, using the question tool when the session has one, and do not start simulating until the primary objective is confirmed. Skip a question only when the request already answers it. In an unattended run, pick the most likely answers, state them at the top of the report and carry on.
+Every run starts with a short intake in two rounds, using the question tool when the session has one. Ask the scenario first, on its own, because who the users are and what they want shapes the task, the objective and the method you propose next. Then ask the remaining questions together in a second round. Do not start simulating until the primary objective is confirmed. Skip a question only when the request already answers it; if the request already gives the scenario, go straight to round 2. In an unattended run, pick the most likely answers, state them at the top of the report and carry on.
 
-1. **What is being tested.** A design in Claude (a Design artifact or artifact link, or screens attached in chat) or a live/staging URL.
-2. **The task.** A concrete goal in the user's words, with a clear end state, for example: find a birthday gift under 30 and get to the payment step. If no task is given, propose two or three realistic ones and confirm. Never test the page in general.
-   - **Primary objective.** Ask which single action or outcome matters most, naming the exact element where possible, for example: users press the Create free now button. This is the success measure for the whole run. If the answer is vague, look at the design, propose two or three candidate objectives and have the designer pick one.
-   - **Scenario.** Ask where the user arrives from and what they want, for example: saw an ad and wants to make a card for a friend. Personas are given this motive only. Never tell a persona which button to press; the test is whether the design leads them to it.
+**Round 1: Scenario.**
+
+1. **Scenario.** Ask who the users are, where they arrive from and what they want, for example: saw an ad and wants to make a card for a friend, or runs a small website and is opening the dashboard for the first time. Look at the design first and offer two or three realistic scenarios as options, with free text allowed. Personas are given this motive only. Never tell a persona which button to press; the test is whether the design leads them to it.
+
+**Round 2: Everything else.** Base the options you offer on the scenario chosen in round 1.
+
+2. **What is being tested.** A design in Claude (a Design artifact or artifact link, or screens attached in chat) or a live/staging URL. Usually clear from the request; ask only if it is not.
+3. **The task.** A concrete goal that fits the scenario, with a clear end state, for example: find a birthday gift under 30 and get to the payment step. If no task is given, propose two or three realistic ones and confirm. Never test the page in general.
+   - **Primary objective.** Ask which single action or outcome matters most, naming the exact element where possible, for example: users press the Create free now button. This is the success measure for the whole run. If the answer is vague, look at the design, propose two or three candidate objectives that fit the scenario and have the designer pick one. Ask the task and the primary objective as one question when they go together.
    - **Secondary objectives (optional).** Up to two other things worth tracking, such as noticing the price or opening the menu.
-3. **Device.** Mobile, desktop, or both. Default: both.
-4. **Method.** Ask which testing method they want to run. Offer the methods in section 2, each with a one-line description, and mark the one recommended for their situation using the chooser in section 2. Default: Unmoderated task test. For Card sorting and Tree testing, the task becomes the items to sort or find, and the primary objective becomes the item or destination that matters most. For Survey, 1:1 interview and Focus group, also ask for any questions the designer wants included.
-5. **Panel size.** Default to Quick.
+4. **Device.** Mobile, desktop, or both. Default: both.
+5. **Method.** Ask which testing method they want to run. Offer the methods in section 2, each with a one-line description, and mark the one recommended for their situation using the chooser in section 2. Default: Unmoderated task test. For Card sorting and Tree testing, the task becomes the items to sort or find, and the primary objective becomes the item or destination that matters most. For Survey, 1:1 interview and Focus group, also ask for any questions the designer wants included.
+6. **Panel size.** Default to Quick.
 
 | Panel size | Personas | Use for |
 |---|---|---|
@@ -212,7 +217,7 @@ Heatmaps are mandatory. Generate them automatically on every run and with every 
 
 ## 6. Report
 
-The report is mandatory. Build it automatically at the end of every run, whatever the method; do not ask whether to make one and never skip it. Deliver it as one self-contained report page with the heatmap images embedded, published as an artifact when the session can, otherwise as an HTML file. In chat, give only a three-line verdict and the link.
+The report is mandatory. Build it automatically at the end of every run, whatever the method; do not ask whether to make one and never skip it. Deliver it as one self-contained report page with the heatmap images embedded, published as an artifact when the session can, otherwise as an HTML file. In chat, give only a three-line verdict, the fix task titles (section 6a) and the link.
 
 Keep the report scannable. Use this order:
 
@@ -223,14 +228,61 @@ Keep the report scannable. Use this order:
 3. **Top issues.** Ranked by priority. Each has: screen and element, what happened, who was affected (persona IDs), severity, recommended fix.
 4. **What worked.** Patterns to keep.
    - **What could be improved.** A separate, clearly titled section listing each suggested change, the issue it addresses, the expected effect on the primary objective (High / Medium / Low) and rough effort (Small / Medium / Large). Open the section with this notice, shown prominently: *These suggestions are AI-generated from simulated users, not real ones. You are the designer. Decide which of them matter for your product and your users, and which do not.* Do not rank the suggestions as must-do; present them as options for the designer to judge.
-5. **Persona highlights.** One short paragraph and quote for the most revealing personas only, not all of them. Offer the full step logs on request.
-6. **Mobile vs desktop differences.**
-7. **Accessibility flags.** Contrast, text size, tap targets under 44 px, colour-only signals, missing labels.
-8. **Validate with real users.** The three findings most worth confirming in a real test.
+5. **Fix tasks.** A checklist with one task per issue in Top issues, in the same priority order, each with a ready-to-use prompt. See section 6a.
+6. **Persona highlights.** One short paragraph and quote for the most revealing personas only, not all of them. Offer the full step logs on request.
+7. **Mobile vs desktop differences.**
+8. **Accessibility flags.** Contrast, text size, tap targets under 44 px, colour-only signals, missing labels.
+9. **Validate with real users.** The three findings most worth confirming in a real test.
 
-Add the method's extra output from section 2 as its own section straight after the scorecard. Card sorting and Tree testing adapt the scorecard to their own metrics but keep every other section, including What could be improved and its AI-generated notice.
+Add the method's extra output from section 2 as its own section straight after the scorecard. Card sorting and Tree testing adapt the scorecard to their own metrics but keep every other section, including What could be improved, its AI-generated notice and Fix tasks.
 
-For the Re-test panel, list each previous issue as Fixed / Improved / Not fixed / New problem introduced.
+For the Re-test panel, list each previous issue as Fixed / Improved / Not fixed / New problem introduced, keyed by its fix task ID (FT-1, FT-2 and so on) so the designer can tick tasks off.
+
+## 6a. Fix tasks
+
+Fix tasks are mandatory whenever the run finds at least one issue. Build them automatically from Top issues; do not ask whether to make them. They turn each finding into something the designer can act on straight away.
+
+**One task per issue.** Every issue in Top issues gets its own task, in priority order, with an ID (FT-1, FT-2 and so on) that matches the issue. Cosmetic issues (severity 1) may be grouped into a single task. Never invent a task for something that is not in Top issues.
+
+Each task is a card with a checkbox and these fields, in this order:
+
+| Field | What to write |
+|---|---|
+| **Title** | Short and actionable, naming the element and the change, for example: Label the bag icon in the header. Add the severity and the groups affected as tags. |
+| **Problem** | One or two sentences: what happens, on which screen and element, and the share of personas affected, for example: 5 of 8 personas never found the cart; 4 of them were in Groups A and C. |
+| **Why it matters** | The effect on the primary objective and on trust or effort: where in the funnel (Saw, Understood, Wanted, Pressed) people dropped out, and what they pressed instead. |
+| **Why it failed** | The root cause seen in the sessions, in terms of the personas' limits, not the designer's intent: an unfamiliar pattern, missed while skimming, low contrast, tap target too small, unclear copy, a trust signal missing. Include one short persona quote with its ID. |
+| **How to fix it** | The suggested change in two to four bullet points, specific enough to build, plus what to keep so the fix does not break what worked. If there are two reasonable options, give both and say which persona groups each one helps more. |
+| **Prompt** | A ready-to-copy prompt that fixes this one issue (see below), in a code block with a copy button. |
+
+**Writing the prompt.** The prompt must work when pasted into a fresh chat by someone who has not read the report, so it carries its own context:
+
+- What is being fixed: the product or page, the screen, the exact element and its current state (copy, size, position, colour where relevant).
+- The problem and its cause in one or two plain sentences, including who struggled.
+- The change to make, taken from How to fix it, written as instructions.
+- Constraints: keep the existing design system, styles and components; change only what this issue needs; do not touch elements listed under What worked.
+- Done when: one to three checks tied to the finding, for example: the icon has a visible text label, the tap target is at least 44 x 44 px, the label passes 4.5:1 contrast.
+- A last line suggesting a Crowd Check Re-test of the affected personas (list their IDs) after the change.
+
+Fit the prompt to what was tested. For a design in Claude, write it as an edit to that design or artifact. For a live or staging URL, write it as a change to the page's code, naming the element as it appears on screen (text, position, role) because the codebase was not seen. Never claim knowledge of file names, components or code that were not visible.
+
+Above each prompt, add one line telling the designer how to use it, for example: Paste this into a chat with your design open, or into Claude Code in the project repo, then re-test with the personas listed.
+
+**Above the list,** show the same AI-generated notice as What could be improved, and a one-line summary such as 6 tasks: 1 blocker, 2 major, 3 minor. Let the designer tick tasks off in the report page; remember ticks only for that viewer, and treat the report as the source of truth.
+
+**In chat,** after the three-line verdict, list the task titles with their severity only, and point to the report for the prompts. When the session has a task-list tool, also add each fix task there by title.
+
+Example card (shortened):
+
+> **FT-1 · Label the bag icon in the header** · Blocker · Groups A, C
+> **Problem.** On the product page (mobile), 5 of 8 personas could not find the cart, so none of them reached Create free now.
+> **Why it matters.** All 5 dropped out at Saw. Three pressed the logo instead and landed back on the homepage.
+> **Why it failed.** The cart is an unlabeled bag icon, 20 px, light grey on white. Group A and C personas do not recognise icon-only controls. C4: "What is the little bag for?"
+> **How to fix it.** Add the word Cart under or beside the icon. Raise the tap target to 44 x 44 px and the icon contrast to at least 3:1. Keep the header height and the search field as they are.
+> *Paste this into a chat with your design open, then re-test A2, A7, C1, C4 and C9.*
+> ```
+> In the mobile product page header, the cart is an unlabeled 20 px bag icon in light grey on white, top right. In a simulated usability test, low-tech users and seniors did not recognise it and could not find the cart, so they never reached "Create free now". Add a visible "Cart" text label next to the icon, make the tap area at least 44 x 44 px and raise the icon contrast to at least 3:1. Keep the existing design system, header height and search field unchanged, and don't change anything else on the page. Done when the label is visible, the tap area is 44 x 44 px or larger and the contrast passes. Afterwards, run a Crowd Check Re-test with personas A2, A7, C1, C4 and C9.
+> ```
 
 ## 7. The persona panel
 
